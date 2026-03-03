@@ -21,16 +21,16 @@ Whether you're researching, writing, or developing ideas, remarkable-mcp lets yo
 
 ## Quick Install
 
-### 🔌 USB Web Interface (Easiest!)
+### 🔌 USB Web Interface (Recommended)
 
-**No developer mode or subscription required!** Connect via USB and enable the web interface.
+**No developer mode or subscription required!** Connect via USB and enable the web interface in your tablet's Storage Settings.
 
 [![Install USB Web Mode in VS Code](https://img.shields.io/badge/VS_Code-Install_USB_Web_Mode-0098FF?style=for-the-badge&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=remarkable&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22google_vision_api_key%22%2C%22description%22%3A%22Google%20Vision%20API%20Key%20(for%20handwriting%20OCR)%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22remarkable-mcp%22%2C%22--usb-web%22%5D%2C%22env%22%3A%7B%22GOOGLE_VISION_API_KEY%22%3A%22%24%7Binput%3Agoogle_vision_api_key%7D%22%7D%7D)
 [![Install USB Web Mode in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install_USB_Web_Mode-24bfa5?style=for-the-badge&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=remarkable&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22google_vision_api_key%22%2C%22description%22%3A%22Google%20Vision%20API%20Key%20(for%20handwriting%20OCR)%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22remarkable-mcp%22%2C%22--usb-web%22%5D%2C%22env%22%3A%7B%22GOOGLE_VISION_API_KEY%22%3A%22%24%7Binput%3Agoogle_vision_api_key%7D%22%7D%7D&quality=insiders)
 
 **Setup:**
 1. Connect your reMarkable via USB
-2. On your tablet: Settings → Storage → Enable "USB web interface"
+2. On your tablet: **Settings → Storage** → Enable **"USB web interface"**
 3. Install via the button above
 
 **Why USB Web?**
@@ -69,7 +69,7 @@ Add to `.vscode/mcp.json`:
 
 ### ⚡ SSH Mode (Advanced)
 
-For expert users who need direct filesystem access. **10-100x faster** than cloud but requires developer mode.
+For power users who need direct filesystem access. Faster than USB Web but requires developer mode (factory reset).
 
 [![Install SSH Mode in VS Code](https://img.shields.io/badge/VS_Code-Install_SSH_Mode-0098FF?style=for-the-badge&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=remarkable&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22google_vision_api_key%22%2C%22description%22%3A%22Google%20Vision%20API%20Key%20(for%20handwriting%20OCR)%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22remarkable-mcp%22%2C%22--ssh%22%5D%2C%22env%22%3A%7B%22GOOGLE_VISION_API_KEY%22%3A%22%24%7Binput%3Agoogle_vision_api_key%7D%22%7D%7D)
 [![Install SSH Mode in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install_SSH_Mode-24bfa5?style=for-the-badge&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=remarkable&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22google_vision_api_key%22%2C%22description%22%3A%22Google%20Vision%20API%20Key%20(for%20handwriting%20OCR)%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22remarkable-mcp%22%2C%22--ssh%22%5D%2C%22env%22%3A%7B%22GOOGLE_VISION_API_KEY%22%3A%22%24%7Binput%3Agoogle_vision_api_key%7D%22%7D%7D&quality=insiders)
@@ -101,9 +101,9 @@ See [SSH Setup Guide](docs/ssh-setup.md) for detailed instructions.
 
 ---
 
-### ☁️ Cloud Mode (Alternative)
+### ☁️ Cloud Mode (Wireless)
 
-If you can't enable developer mode, use the Cloud API. Requires a reMarkable Connect subscription.
+For wireless or remote access when USB isn't available. Requires a reMarkable Connect subscription and is significantly slower than USB modes.
 
 <details>
 <summary>📋 Cloud Mode Setup</summary>
@@ -182,12 +182,12 @@ Choose the connection method that works best for you:
 
 | Mode | Setup Difficulty | Speed | Requirements | Best For |
 |------|-----------------|-------|--------------|----------|
-| **USB Web** | ✅ Easy | Fast | USB connection, enable in Settings | Most users |
-| **SSH** | ⚠️ Advanced | Very Fast | Developer mode (factory reset) | Power users |
-| **Cloud** | ✅ Easy | Slow | reMarkable Connect subscription | Remote access |
+| **🔌 USB Web (Recommended)** | ✅ Easy | Fast | USB cable, enable in Storage Settings | Everyone |
+| **⚡ SSH** | ⚠️ Advanced | Very Fast | Developer mode (factory reset) | Power users |
+| **☁️ Cloud** | ✅ Easy | Slow | reMarkable Connect subscription | Remote/wireless access |
 
 **📖 Detailed Setup Guides:**
-- [USB Web Interface Setup](docs/usb-web-setup.md) — Recommended for most users
+- [USB Web Interface Setup](docs/usb-web-setup.md) — **Recommended** — no dev mode, no subscription, full feature support
 - [SSH Setup Guide](docs/ssh-setup.md) — For advanced users who need filesystem access
 - Cloud setup is documented in the Quick Install section above
 

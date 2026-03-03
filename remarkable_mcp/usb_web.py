@@ -54,6 +54,9 @@ class Document:
     synced: bool = True
     last_modified: Optional[datetime] = None
     size: int = 0
+    file_type: Optional[str] = None  # "pdf", "epub", "notebook" — from API response
+    bookmarked: bool = False
+    current_page: int = 0
     files: List[Dict[str, Any]] = field(default_factory=list)
 
     @property
@@ -170,6 +173,9 @@ class USBWebClient:
             doc_type=doc_type,
             parent=parent,
             last_modified=last_modified,
+            file_type=entry.get("fileType"),
+            bookmarked=entry.get("Bookmarked", False),
+            current_page=entry.get("CurrentPage", 0),
         )
 
     def get_meta_items(self, limit: Optional[int] = None) -> List[Document]:
@@ -268,41 +274,50 @@ class USBWebClient:
         """
         Download a raw file (PDF or EPUB) for a document.
 
-        For USB web interface, we use the /download/{guid}/pdf endpoint.
-        Note: EPUB download may not be supported via USB web interface.
+        The .rmdoc archive contains the original source files (.pdf, .epub)
+        alongside the .rm notebook data, so we extract from the archive.
+        Falls back to the /download/{guid}/pdf endpoint for PDF.
         """
-        if extension.lower() == "pdf":
-            endpoint = DOWNLOAD_PDF_URL.format(guid=doc.id)
+        ext = extension.lower().lstrip(".")
+        # Try extracting from the .rmdoc archive first
+        try:
+            rmdoc_data = self.download(doc)
+            import io
+            import zipfile
+
+            with zipfile.ZipFile(io.BytesIO(rmdoc_data)) as z:
+                for name in z.namelist():
+                    if name.endswith(f".{ext}"):
+                        return z.read(name)
+        except Exception as e:
+            logger.debug(f"Failed to extract .{ext} from rmdoc for {doc.id}: {e}")
+
+        # Fall back to /download/{guid}/pdf endpoint for PDF
+        if ext == "pdf":
             try:
+                endpoint = DOWNLOAD_PDF_URL.format(guid=doc.id)
                 response = self._request(endpoint)
                 return response.content
             except Exception as e:
                 logger.debug(f"Failed to download PDF for {doc.id}: {e}")
-                return None
-        else:
-            # EPUB and other formats may not be directly supported
-            logger.debug(f"Format {extension} may not be supported via USB web interface")
-            return None
+
+        return None
 
     def get_file_type(self, doc: Document) -> Optional[str]:
         """
         Get the file type (pdf, epub, notebook) for a document.
 
-        For USB web interface, we infer from the document name.
-        A more sophisticated implementation could inspect the downloaded content.
+        Uses the fileType field returned by the USB web API.
         """
-        name = doc.VissibleName.lower()
-        if name.endswith(".pdf"):
-            return "pdf"
-        elif name.endswith(".epub"):
-            return "epub"
+        if doc.file_type:
+            return doc.file_type
         return "notebook"
 
     def get_all_file_types(self) -> dict[str, Optional[str]]:
         """
         Get file types for all documents.
 
-        For USB web interface, we infer from document names.
+        Uses the fileType field from the USB web API response.
         """
         if not self._documents_by_id:
             self.get_meta_items()

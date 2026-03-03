@@ -1141,7 +1141,7 @@ class TestUSBWebInterface:
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = [
-            {"ID": "doc1", "VissibleName": "Test Doc", "Type": "DocumentType"},
+            {"ID": "doc1", "VissibleName": "Test Doc", "Type": "DocumentType", "fileType": "pdf"},
             {"ID": "folder1", "VissibleName": "Test Folder", "Type": "CollectionType"},
         ]
         mock_request.return_value = mock_response
@@ -1152,6 +1152,10 @@ class TestUSBWebInterface:
         assert len(docs) >= 2
         assert any(d.name == "Test Doc" for d in docs)
         assert any(d.is_folder for d in docs)
+        # fileType from API response is captured
+        pdf_doc = next(d for d in docs if d.name == "Test Doc")
+        assert pdf_doc.file_type == "pdf"
+        assert client.get_file_type(pdf_doc) == "pdf"
 
     @patch("requests.request")
     def test_usb_web_download(self, mock_request):
