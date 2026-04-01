@@ -7,13 +7,12 @@
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix packages)
   #:use-module (gnu packages check)
+  #:use-module (gnu packages ebook)
   #:use-module (gnu packages ocr)
+  #:use-module (gnu packages pdf)
   #:use-module (gnu packages python-build)
-  #:use-module (gnu packages python-crypto)
-  #:use-module (gnu packages python-science)
   #:use-module (gnu packages python-web)
-  #:use-module (gnu packages python-xyz)
-  #:use-module (gnu packages xml))
+  #:use-module (gnu packages python-xyz))
 
 (define-public python-rmscene
   (package
