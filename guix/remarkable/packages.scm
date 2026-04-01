@@ -67,6 +67,7 @@
     (build-system pyproject-build-system)
     (arguments
      (list
+      #:tests? #f  ; tests require running tesseract and setup.py test is broken
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'patch-tesseract-path
