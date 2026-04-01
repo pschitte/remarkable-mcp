@@ -1,6 +1,7 @@
 (define-module (remarkable packages)
   #:use-module (guix)
   #:use-module (guix build-system pyproject)
+  #:use-module (guix build-system python)
   #:use-module (guix download)
   #:use-module (guix git-download)
   #:use-module ((guix licenses) #:prefix license:)
