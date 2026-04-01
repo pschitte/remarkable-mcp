@@ -101,6 +101,7 @@
     (propagated-inputs (list python-beautifulsoup4
                              python-cairosvg
                              python-ebooklib
+                             python-httpx-sse
                              python-mcp
                              python-pillow
                              python-pymupdf
