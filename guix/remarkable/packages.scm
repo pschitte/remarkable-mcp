@@ -104,11 +104,16 @@
                              python-httpx-sse
                              python-mcp
                              python-pillow
+                             python-pydantic-settings
                              python-pymupdf
                              python-pytesseract
                              python-requests
                              python-rmc
-                             python-rmscene))
+                             python-rmscene
+                             python-sse-starlette
+                             python-starlette
+                             python-typer
+                             python-uvicorn))
     (native-inputs (list python-hatchling))
     (home-page "https://github.com/SamMorrowDrums/remarkable-mcp")
     (synopsis "MCP server for accessing reMarkable tablet data")
