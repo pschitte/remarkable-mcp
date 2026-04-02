@@ -102,6 +102,7 @@
                              python-cairosvg
                              python-ebooklib
                              python-httpx-sse
+                             python-jsonschema
                              python-mcp
                              python-pillow
                              python-pydantic-settings
@@ -113,6 +114,7 @@
                              python-sse-starlette
                              python-starlette
                              python-typer
+                             python-typing-inspection
                              python-uvicorn))
     (native-inputs (list python-hatchling))
     (home-page "https://github.com/SamMorrowDrums/remarkable-mcp")
